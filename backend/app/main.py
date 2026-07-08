@@ -3,6 +3,11 @@ from openpyxl import Workbook
 from io import BytesIO
 from datetime import datetime
 from .pdf_report import crear_pdf
+from pathlib import Path
+
+from fastapi.staticfiles import StaticFiles
+
+from fastapi.responses import FileResponse
 from .biblioteca import (
 
     listar_reacciones,
@@ -34,6 +39,38 @@ app = FastAPI(
     version="1.0"
 )
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+FRONTEND = BASE_DIR / "frontend"
+
+app.mount(
+
+    "/css",
+
+    StaticFiles(
+
+        directory=FRONTEND / "css"
+
+    ),
+
+    name="css"
+
+)
+
+app.mount(
+
+    "/js",
+
+    StaticFiles(
+
+        directory=FRONTEND / "js"
+
+    ),
+
+    name="js"
+
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -46,9 +83,11 @@ app.add_middleware(
 @app.get("/")
 def inicio():
 
-    return {
-        "mensaje": "Backend funcionando correctamente"
-    }
+    return FileResponse(
+
+        FRONTEND / "index.html"
+
+    )
 
 
 @app.post("/calcular")

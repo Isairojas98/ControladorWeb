@@ -1,0 +1,291 @@
+/* =======================================================
+   CONTROL SYSTEM DESIGNER
+   Style Sheet v2.0
+=======================================================*/
+
+body{
+
+    background:#eef3f9;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    color:#2c3e50;
+
+}
+
+
+/*======================================================
+HEADER
+======================================================*/
+
+.hero{
+
+    background:linear-gradient(90deg,#0b4ea2,#1976d2);
+
+    color:white;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+
+    margin-bottom:30px;
+
+}
+
+.hero h1{
+
+    font-size:2.2rem;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+
+}
+
+.hero p{
+
+    font-size:1.05rem;
+
+    opacity:.9;
+
+}
+
+
+/*======================================================
+CARDS
+======================================================*/
+
+.card{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+}
+
+.card-header{
+
+    font-weight:bold;
+
+    font-size:1.1rem;
+
+    padding:14px 20px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+
+/*======================================================
+LABELS
+======================================================*/
+
+label{
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+
+}
+
+
+/*======================================================
+INPUTS
+======================================================*/
+
+.form-control,
+
+.form-select{
+
+    border-radius:10px;
+
+    border:1px solid #ced4da;
+
+    padding:10px;
+
+    transition:.25s;
+
+}
+
+.form-control:focus,
+
+.form-select:focus{
+
+    border-color:#1976d2;
+
+    box-shadow:0 0 0 .15rem rgba(25,118,210,.25);
+
+}
+
+
+/*======================================================
+BUTTONS
+======================================================*/
+
+.btn{
+
+    border-radius:10px;
+
+    transition:.25s;
+
+    font-weight:600;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+    background:#1565c0;
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    background:#0d47a1;
+
+}
+
+.btn-success{
+
+    background:#2e7d32;
+
+    border:none;
+
+}
+
+.btn-success:hover{
+
+    background:#1b5e20;
+
+}
+
+.btn-danger{
+
+    border:none;
+
+}
+
+
+/*======================================================
+GRAPH
+======================================================*/
+
+#grafica{
+
+    width:100%;
+
+    height:550px;
+
+}
+
+
+/*======================================================
+SLIDER
+======================================================*/
+
+#sliderContainer{
+
+    margin-top:20px;
+
+}
+
+
+/*======================================================
+TABLE
+======================================================*/
+
+.table{
+
+    font-size:.90rem;
+
+}
+
+.table thead{
+
+    position:sticky;
+
+    top:0;
+
+    background:white;
+
+    z-index:10;
+
+}
+
+.table th{
+
+    text-align:center;
+
+}
+
+.table td{
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+
+/*======================================================
+SCROLL TABLE
+======================================================*/
+
+.table-responsive{
+
+    max-height:560px;
+
+    overflow-y:auto;
+
+}
+
+
+/*======================================================
+FOOTER
+======================================================*/
+
+footer{
+
+    color:#6c757d;
+
+    font-size:.9rem;
+
+}
+
+
+/*======================================================
+RESPONSIVE
+======================================================*/
+
+@media(max-width:992px){
+
+    #grafica{
+
+        height:450px;
+
+    }
+
+    .hero h1{
+
+        font-size:1.8rem;
+
+    }
+
+}
