@@ -1,0 +1,22 @@
+{
+    "nombre": "Oxidación de Benceno a Anhídrido Maleico",
+    
+    "tiempo_salto": 10,
+
+    "variables": {
+
+        "Temperatura": {
+
+            "m": 697
+
+        },
+
+        "Flujo": {
+
+            "m": 2.48
+
+        }
+
+    }
+
+}

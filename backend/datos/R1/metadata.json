@@ -1,0 +1,21 @@
+{
+    "nombre": "Oxidación de Etileno a Óxido de Etileno",
+    
+    "tiempo_salto": 20,
+
+    "variables": {
+
+        "Temperatura": {
+
+            "m": 497
+
+        },
+
+        "Flujo": {
+
+            "m": 1.3
+
+        }
+
+    }
+}

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Control System Designer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+</head>
+
+<body>
+
+<header class="hero">
+
+    <h1>Control System Designer</h1>
+
+    <p>Tubular Reactor Control Platform</p>
+
+</header>
+
+<div class="container text-end mt-3 mb-3">
+
+    <button
+
+        id="btnBiblioteca"
+
+        class="btn btn-dark">
+
+        📚 Biblioteca de Reacciones
+
+    </button>
+
+</div>
+
+<div class="container-fluid my-4">
+
+    <!-- ========================= -->
+    <!-- CONFIGURACIÓN            -->
+    <!-- ========================= -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4 class="mb-0">
+
+                Configuración
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row justify-content-center">
+
+                <div class="col-lg-6">
+
+                    <label class="form-label fw-bold">
+
+                        Reacción
+
+                    </label>
+
+                    <select
+                        id="reaccion"
+                        class="form-select mb-3">
+
+                        <option value="R1">
+
+                            Oxidación de Etileno a Óxido de Etileno
+
+                        </option>
+
+                        <option value="R2">
+
+                            Oxidación de Butano a Anhídrido Maleico
+
+                        </option>
+
+                    </select>
+
+                    <label class="form-label fw-bold">
+
+                        Variable
+
+                    </label>
+
+                    <select
+                        id="variable"
+                        class="form-select mb-3">
+
+                        <option>
+
+                            Temperatura
+
+                        </option>
+
+                        <option>
+
+                            Flujo
+
+                        </option>
+
+                    </select>
+
+                    <label class="form-label fw-bold">
+
+                        Salto
+
+                    </label>
+
+                    <select
+                        id="salto"
+                        class="form-select mb-3">
+
+                    </select>
+
+                    <div class="text-center">
+
+                        <button
+
+                            id="btnCalcular"
+
+                            class="btn btn-primary btn-lg px-5">
+
+                            Calcular
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- RESULTADOS               -->
+    <!-- ========================= -->
+
+    <div class="row">
+
+<!-- ========================================= -->
+<!-- RESPUESTA DEL PROCESO -->
+<!-- ========================================= -->
+
+<div class="col-lg-8 mb-4">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-header bg-success text-white">
+
+            <h4 class="mb-0">
+
+                Respuesta del Proceso
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="text-center mb-3">
+
+                <button
+                    id="btnConc"
+                    class="btn btn-success me-2">
+
+                    Concentración
+
+                </button>
+
+                <button
+                    id="btnTemp"
+                    class="btn btn-secondary">
+
+                    Temperatura
+
+                </button>
+
+            </div>
+
+            <div
+                id="grafica"
+                style="height:550px;">
+
+            </div>
+
+            <div
+                id="sliderContainer"
+                style="display:none;">
+
+                <label class="fw-bold">
+
+                    Posición del Reactor
+
+                </label>
+
+                <input
+                    id="slider"
+                    class="form-range"
+                    type="range"
+                    min="1"
+                    max="11"
+                    value="1">
+
+                <div class="d-flex justify-content-between small">
+
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                    <span>9</span>
+                    <span>10</span>
+                    <span>11</span>
+
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+
+                <button
+                    id="btnGrafica"
+                    class="btn btn-outline-primary">
+
+                    📈 Descargar gráfica
+
+                </button>
+
+            </div>
+
+            <div class="text-center mt-3">
+
+                <button
+                    id="btnConfigGrafica"
+                    class="btn btn-outline-secondary">
+
+                    ⚙ Configurar gráfica
+
+                </button>
+
+            </div>
+
+            <div
+                id="panelGrafica"
+                class="card mt-3"
+                style="display:none;">
+
+                <div class="card-body">
+
+                    <h5 class="mb-3">
+
+                        Configuración de la gráfica
+
+                    </h5>
+
+                    <!-- EJE X -->
+
+                    <div class="form-check mb-3">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="editarX"
+                            checked>
+
+                        <label
+                            class="form-check-label"
+                            for="editarX">
+
+                            Personalizar eje X
+
+                        </label>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+
+                            <label>X mínimo</label>
+
+                            <input
+                                id="xmin"
+                                type="number"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label>X máximo</label>
+
+                            <input
+                                id="xmax"
+                                type="number"
+                                class="form-control">
+
+                        </div>
+
+                    </div>
+
+                    <!-- EJE Y -->
+
+                    <div class="form-check mb-3">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="editarY">
+
+                        <label
+                            class="form-check-label"
+                            for="editarY">
+
+                            Personalizar eje Y
+
+                        </label>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+
+                            <label>Y mínimo</label>
+
+                            <input
+                                id="ymin"
+                                type="number"
+                                class="form-control"
+                                disabled>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label>Y máximo</label>
+
+                            <input
+                                id="ymax"
+                                type="number"
+                                class="form-control"
+                                disabled>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ESCALA -->
+
+                    <div class="form-check mb-4">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="mismaEscala">
+
+                        <label
+                            class="form-check-label"
+                            for="mismaEscala">
+
+                            Usar la misma escala para todas las temperaturas
+
+                        </label>
+
+                    </div>
+
+                    <div class="text-center">
+
+                        <button
+                            id="btnAplicar"
+                            class="btn btn-success me-2">
+
+                            Aplicar
+
+                        </button>
+
+                        <button
+                            id="btnReset"
+                            class="btn btn-warning">
+
+                            Restablecer
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- TABLA DEL CONTROLADOR -->
+<!-- ========================================= -->
+
+<div class="col-lg-4 mb-4">
+
+    <div class="card shadow-sm h-100">
+
+        <div class="card-header bg-dark text-white">
+
+            <h4 class="mb-0">
+
+                Diseño del Controlador
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <div
+                style="max-height:560px;
+                overflow-y:auto;">
+
+                <table
+
+                    id="tabla"
+
+                    class="table table-striped table-hover">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Temp</th>
+
+                            <th>Kc</th>
+
+                            <th>KPI</th>
+
+                            <th>Tint</th>
+
+                            <th>Regla</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+
+                <button
+
+                    id="btnDescargar"
+
+                    class="btn btn-success">
+
+                    📥 Descargar Excel
+
+                </button>
+
+                <button
+
+                    id="btnInforme"
+
+                    class="btn btn-danger">
+
+                    📄 Descargar informe
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer class="text-center mt-5 mb-3">
+
+    <hr>
+
+    <small class="text-muted">
+
+        Control System Designer © 2026
+
+        <br>
+
+        Tubular Reactor Control Platform
+
+    </small>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- BIBLIOTECA DE REACCIONES -->
+<!-- ========================================= -->
+
+<div
+
+    class="modal fade"
+
+    id="modalBiblioteca"
+
+    tabindex="-1"
+
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Biblioteca de Reacciones
+
+                </h5>
+
+                <button
+
+                    type="button"
+
+                    class="btn-close"
+
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <hr>
+
+                <label class="form-label fw-bold">
+
+                    ¿Qué deseas hacer?
+
+                </label>
+
+                <div class="form-check">
+
+                    <input
+
+                        class="form-check-input"
+
+                        type="radio"
+
+                        name="tipoRegistro"
+
+                        id="nuevaReaccion"
+
+                        checked>
+
+                    <label
+
+                        class="form-check-label"
+
+                        for="nuevaReaccion">
+
+                        Crear una nueva reacción
+
+                    </label>
+
+                </div>
+
+                <div class="form-check mb-4">
+
+                    <input
+
+                        class="form-check-input"
+
+                        type="radio"
+
+                        name="tipoRegistro"
+
+                        id="agregarVariable">
+
+                    <label
+
+                        class="form-check-label"
+
+                        for="agregarVariable">
+
+                        Agregar una variable a una reacción existente
+
+                    </label>
+
+                </div>
+
+                <!-- =============================== -->
+                <!-- NUEVA REACCIÓN                  -->
+                <!-- =============================== -->
+
+                <div id="panelNuevaReaccion">
+
+                    <label class="form-label">
+
+                        Nombre de la reacción
+
+                    </label>
+
+                    <input
+
+                        id="nombreReaccion"
+
+                        class="form-control mb-3">
+
+                    <label class="form-label">
+
+                        Tiempo del salto
+
+                    </label>
+
+                    <input
+
+                        id="nuevoTiempo"
+
+                        type="number"
+
+                        class="form-control mb-3">
+
+                    <label class="form-label">
+
+                        Valor de m
+
+                    </label>
+
+                    <input
+
+                        id="nuevoM"
+
+                        type="number"
+
+                        class="form-control mb-3">
+
+                </div>
+
+                <!-- =============================== -->
+                <!-- REACCIÓN EXISTENTE              -->
+                <!-- =============================== -->
+
+                <div
+
+                    id="panelReaccionExistente">
+            
+                    <label class="form-label">
+
+                        Reacción existente
+
+                    </label>
+
+                    <select
+
+                        id="reaccionExistente"
+
+                        class="form-select mb-3">
+
+                    </select>
+
+                    <label class="form-label">
+                        Valor de m
+                    </label>
+
+                    <input
+                        id="nuevoMVariable"
+                        type="number"
+                        step="any"
+                        class="form-control mb-3">
+
+                </div>
+
+                <!-- =============================== -->
+                <!-- VARIABLE                        -->
+                <!-- =============================== -->
+
+                <label class="form-label">
+
+                    Variable
+
+                </label>
+
+                <select
+
+                    id="nuevaVariable"
+
+                    class="form-select mb-3">
+
+                    <option>
+
+                        Temperatura
+
+                    </option>
+
+                    <option>
+
+                        Flujo
+
+                    </option>
+
+                </select>
+
+                <!-- =============================== -->
+                <!-- ARCHIVOS                        -->
+                <!-- =============================== -->
+
+                <label class="form-label">
+
+                    Archivos .dat
+
+                </label>
+
+                <input
+
+                    id="archivosDat"
+
+                    type="file"
+
+                    multiple
+
+                    accept=".dat"
+
+                    class="form-control">
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+
+                    class="btn btn-secondary"
+
+                    data-bs-dismiss="modal">
+
+                    Cancelar
+
+                </button>
+
+                <button
+
+                    id="btnGuardarReaccion"
+
+                    class="btn btn-primary">
+
+                    Guardar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- SCRIPTS -->
+<!-- ========================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

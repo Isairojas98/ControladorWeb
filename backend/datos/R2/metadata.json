@@ -1,0 +1,21 @@
+{
+    "nombre": "Oxidación de Butano a Anhídrido Maleico",
+    
+    "tiempo_salto": 20,
+
+    "variables": {
+
+        "Temperatura": {
+
+            "m": 723
+
+        },
+
+        "Flujo": {
+
+            "m": 1.3
+
+        }
+
+    }
+}
